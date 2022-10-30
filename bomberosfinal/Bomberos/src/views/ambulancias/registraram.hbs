@@ -1,0 +1,52 @@
+
+<div id="layoutSidenav" class="">
+<div id="layoutSidenav_content">
+
+<div class=" container p-2" id="area" style="overflow-y: auto;">
+    {{!-- <a href="/profile" class="btn btn-danger">Regresar</a> --}}
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Registrar Ambulancias</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/registros/ambulancias_reg" method="POST">
+                        <div class="form-group">Marca
+                            <input type="text" name="Marca" placeholder="" class="form-control" required>
+                        </div>
+                        <div class="form-group">Modelo
+                            <input type="text" name="Modelo" placeholder="" class="form-control" required>
+                        </div>
+                         <div class="form-group">Placa
+                            <input type="text" id="Placa" name="Placa" placeholder="" class="form-control"  onblur="upperCase()" required>
+                        </div>
+                         <div class="form-group">TipoAmbulancia
+                            <input type="text" name="TipoAmbulancia" placeholder="" class="form-control" required>
+                        </div>  
+                        
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block" id="obtener">
+                                Registrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+ function upperCase() {
+   var x=document.getElementById("Placa").value
+   document.getElementById("Placa").value=x.toUpperCase()
+}
+
+    $(document).ready(function () {
+        var height = $(window).height();
+        console.log("heigh:", height);
+        $('#area').height(height - 120);
+    })
+</script>

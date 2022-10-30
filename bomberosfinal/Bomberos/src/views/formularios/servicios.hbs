@@ -1,0 +1,190 @@
+
+ <div id="layoutSidenav" class="">
+  
+     <div id="layoutSidenav_content">
+        
+        <div class="container  p-2" id="area" style="overflow-y: auto;">
+            <div id="message" >
+                </div> 
+                <h1 align="center">Formulario de Servicios</h1>
+         
+                        <div class="container-fluid form-group row" >
+
+                            
+                            <div id="DTipoServicio" class="col-md-2">TIPO DE ACCIDENTE
+
+                                                        <select id="TipoServicio" name="TipoServicio" class="btn btn-danger" onchange="getval(this);">
+                                                        
+                                                            <option value="1">PREVENCIONES</option>
+                                                            <option value="2">SERVICIOS DE AGUA</option>
+                                                            <option value="3">SERVICIOS VARIOS</option>
+                                                            <option value="4">FALSA ALARMA</option>
+                                                            <option value="5">CBM</option>
+                                                            
+                                                 
+                                                        
+                                                        </select>
+                                                    </div>
+                            <div id="DFecha" class="col-md-2" >FECHA Y HORA
+                                <input type="datetime-local" id="Fecha" name="Fecha"  class="form-control" required>
+                            </div>
+
+                            <div id="DNombre" name="DNombre" class="col-md-5" >NOMBRE DEL SOLICITANTE
+                                <input type="text" id="Solicitante" name="Solicitante" class="form-control"required>
+                            </div>
+
+                                <div id="DBombero" class="col-md-2">UNIDAD ENCARGADA
+
+                          <select id="Id_Unidad" name="Id_Unidad" class="btn btn-danger" onchange="getval(this);">
+                                             {{#each unidad}}
+                                                            <option value={{Placa}}>{{TipoAmbulancia}} Placa={{Placa}}</option>
+                                                            {{/each}}
+                                                        </select>
+                                 </div>
+
+                            
+                        </div>
+                        <div class="container-fluid form-group row ml-0" >LUGAR/ESTABLECIMIENTO
+                                <input type="text" id="Lugar" name="Lugar" class="form-control"required>
+                            </div>
+                         <div class="container-fluid form-group row ml-0">Descripción
+                                                <textarea id="descripcion" name="descripcion"
+                                                    onkeyPress="return noEnter(this.value, event)" rows="3"
+                                                    class="form-control"
+                                                    placeholder="Descripción del servicio"></textarea>
+                                            </div>
+                    
+                    
+
+
+                        
+                    
+       
+        <input type="button" value="Guardar" id="guardar" class="btn btn-block btn-success">
+        </div>
+    </div>
+</div>
+
+<script>
+
+ var detalle = [];
+        var fila;
+        var listado = [];
+        var cadena = "";
+        var i=0
+
+ function noEnter(texto, e) {
+            if (navigator.appName == "Netscape") tecla = e.which;
+            else tecla = e.keyCode;
+            if (tecla == 13) return false;
+            else return true;
+        }
+
+
+
+
+                $('#guardar').click(async function  () {
+                               
+                 
+              
+                                if ($("input[name='Fecha").val() === "") {
+                                    $("#message").append(message('Ingrese una fecha valida'));
+                                    return
+                                }
+                                else if($("input[name='Solicitante").val() === "") {
+                                    $("#message").append(message('Ingrese el nombre del solicitante'));
+                                    return
+                                }
+                               else if($("input[name='Lugar").val() === "") {
+                                    $("#message").append(message('Ingrese el lugar o establecimiento'));
+                                    return
+                                }
+                                else if($('#descripcion').val() === "") {
+                                    $("#message").append(message('Ingrese la descripción'));
+                                    return
+                                }
+                              
+
+                              Swal.fire({
+                                    title: 'Esta seguro que desea guardar?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#259f48',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, deseo guardar!',
+                                    cancelButtonText:"Cancelar"
+                                    }).then(async(result) => {
+                                    if (result.isConfirmed) {
+
+                    let TipoServicio= $('select[name="TipoServicio"] option:selected').text()
+                    let Id_Unidad= $('select[name="Id_Unidad"] option:selected').val()
+                     let Fecha = $('#Fecha').val();
+                    let Lugar = ($('#Lugar').val());
+                    let Solicitante = ($('#Solicitante').val());
+                    let Descripcion = $('#descripcion').val();
+                             //   clave_a=$('#clave_a span').text();
+            
+                               url = "/formularios/servicios_form";
+                                pedido = {
+                                    TipoServicio,
+                                    Id_Unidad,
+                                    Fecha,
+                                    Descripcion,
+                                    Solicitante,
+                                    Lugar,
+                                  
+                                }
+                              //  $('#registros').text('');
+                          //      $('#total').text('0');
+                                await fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    redirect: 'follow',
+                                    body: JSON.stringify(pedido)
+                                });
+
+                                Swal.fire('Se ha guardado Exitosamente').then(() => {
+                                   window.location.reload();
+                                         })
+                                    }
+                                   
+                                    
+                                    })
+                 });
+                                 
+                            
+
+
+
+function message(cadena) {
+            let mensaje = `<div id="alert" class="container" style="position: absolute;">
+                                <div id="alert" class="col-md-4 mx-auto">
+                                    <div  id="alert"class="alert alert-danger alert-dismissible fade show " role="alert" style="  z-index:100;" >
+                                    ${cadena}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                           </div>
+                                        </div>
+                                    </div>`;
+            //Autoclose
+            window.setTimeout(function () {
+                $(".alert").fadeTo(1500, 0).slideDown(1000, function () {
+                    $(this).remove();
+                });
+            }, 1700); //2 segundos y desaparece
+            return mensaje;
+        }; 
+
+
+        $(document).ready(function () {
+            var height = $(window).height();
+            console.log("heigh:", height);
+            $('#area').height(height - 125);
+        })
+
+   
+          
+    </script>

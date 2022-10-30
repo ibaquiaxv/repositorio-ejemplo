@@ -1,0 +1,63 @@
+
+<div id="layoutSidenav" class="">
+<div id="layoutSidenav_content">
+
+<div class=" container p-2" id="area" style="overflow-y: auto;">
+    {{!-- <a href="/profile" class="btn btn-danger">Regresar</a> --}}
+    <div class="row">
+        <div class="col-md-5 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Asignacíon de Unidades</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/registros/unidades_reg" method="POST">
+
+                        <div class="form-group col-md-15" align="left">
+                            <h4>Seleccione el Bombero:</h4>
+                           
+                                <label for="inputState" >Nombre del Bombero</label>
+                                <select name="Id_Bombero">
+                                         {{#each bomberos}}
+                                    <option value={{IdBombero}}>{{Nombres}} {{Apellidos}}</option>
+                                         {{/each}}
+                                    </select>
+                                </div>
+
+                           
+
+                              <div class="form-group col-md-15" align="left">
+                            <h4>Seleccione la Ambulancia:</h4>
+                               
+                                <label for="inputState" >Nombre de la Ambulancia</label>
+                                <select name="Id_Ambulancia">
+                                     {{#each ambulancias}}
+                                    <option value={{IdAmbulancia}}>{{TipoAmbulancia}} Placa={{Placa}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+
+                            
+
+                              
+                        
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block" id="obtener">
+                                Asignar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var height = $(window).height();
+        console.log("heigh:", height);
+        $('#area').height(height - 120);
+    })
+</script>

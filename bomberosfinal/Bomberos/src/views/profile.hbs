@@ -1,0 +1,50 @@
+
+   {{!-- {{#if (eq user.id_depto_u 1)}} --}}
+   <div id="layoutSidenav" class="">
+            <div id="layoutSidenav_content">
+                    <div class="container-fluid ">
+						{{!-- {{else}}
+					
+
+							{{/if}} --}}
+                     
+<div id="carouselExampleSlidesOnly" class=" mt-2 carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block container-fluid img-responsive" src="/img/motivacional2.jpg" alt="First slide" style="width: 85%;">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block container-fluid" src="/img/motivacional4.jpg" alt="Second slide" style="width: 80%;">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block container-fluid" src="/img/motivacional.jpg" alt="Third slide" style="width: 85%;">
+    </div>
+  </div>
+</div>
+
+
+
+                       
+                    </div>
+              
+				   {{#if (eq user.id_depto_u 1)}}
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4"> 
+						{{else}}
+						
+						 <footer class="py-3 bg-light" style="position: relative; bottom: -10rem;">
+                    <div class="container-fluid px-4"> 
+						{{/if}}
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Marcos Castillo 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+</div>
+ </div>

@@ -1,0 +1,74 @@
+
+<div id="layoutSidenav" >
+    <div id="layoutSidenav_content">
+                <main>
+                  
+                    <div class="container-fluid px-4 mt-1"   id="scroll"  style="margin-top: 0px; overflow-y:auto">
+                           <form action="/reportemes/incendios_mes" method="POST">
+
+
+                <div class="input-group">
+            <input type="month" name="date" value="{{ fecha }}" required>
+            <div class="input-group-append mostrar">
+                <input type="submit" value="Consultar" class="btn btn-primary">
+            </div>
+         </div>
+   
+
+        
+                        <h1 class="mt-4">Reporte Mensual De Incendios </h1>
+                        
+                        
+                        
+                        <div class="card mb-4">
+                            <div class="card-header" style="background-color:#96281B">
+                                <i class="fas fa-table me-1" style="color:white"></i>
+                             
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Fecha</th>
+                                            <th>Lugar</th>
+                                            <th>Tipo accidente</th>
+                                            <th>Unidad Servicio</th>
+                                            <th>Personas Afectadas</th>
+                                            <th>Detalle</th>
+                                        </tr>
+                                    </thead>
+                                      
+                                    <tbody>
+                                         {{#each incendios}}
+                                        <tr>
+                                            <td width="25" >{{ind @index}}</td>
+                                            <td>{{time FechaIncendio}}</td>
+                                            <td>{{LugarIncendio}}</td>
+                                            <td>{{TipoIncendio}}</td>
+                                            <td>{{TipoAmbulancia}}</td>
+                                            <td width="14%">{{cantidad}}</td>
+ 
+                                            <td class="p-0 mostrar"><a href="/reportefinal/incendiosfinal/{{id}}" class="btn btn-info btn-block mb-2" >Detalle</a>
+                                             
+                                        
+                                        </tr>
+                                      {{/each}}  
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+               
+            </div>
+        </div>
+
+<script>
+     $(document).ready(function () {
+        var height = $(window).height();
+          $('#scroll').height(height -100);
+    });
+
+
+</script>

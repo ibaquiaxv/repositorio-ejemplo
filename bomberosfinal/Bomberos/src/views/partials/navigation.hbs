@@ -1,0 +1,238 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark ocultar">
+            <!-- Navbar Brand-->
+            {{#if user }}
+            <div>
+                 <img src="/img/bmb.jpeg" alt="logo" class="card-img-top mx-auto ps-1 " style="position: relative; bottom: 0.3rem; width:30px">
+                 <a class="navbar-brand " href="#" >Estación de Bomberos</a>
+            </div>
+                 
+
+                    {{else}}
+                    <div>
+                 <img src="/img/bmb.jpeg" alt="logo" class="card-img-top mx-auto ps-1 " style="position: relative; bottom: 0.3rem; width:30px">
+                 <a class="navbar-brand " href="/" >Estación de Bomberos</a>
+                  </div>
+                    {{/if}}
+
+                      {{#if user }}
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                {{!-- <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div> --}}
+            </form>
+            <!-- Navbar-->
+          
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                   <a href="/profile" class="nav-link perfil">
+                            <h5 class="mt-2 small">{{user.username}}</h5>
+                        </a> 
+                <li class="nav-item dropdown">
+                    
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                       
+                        <li><a class="dropdown-item" href="/logout" class="nav-link">Cerrar Sesión</a></li>
+                    
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+                <div id="layoutSidenav" >
+                    <div id="layoutSidenav_nav">
+                        <nav class="sb-sidenav accordion sb-sidenav-dark " id="sidenavAccordion">
+                            <div class="sb-sidenav-menu">
+                                <div class="nav">
+                                    <div class="sb-sidenav-menu-heading">Menú</div>
+                                    <a class="nav-link" href="/profile">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                        Principal
+                                    </a>
+
+                                       {{!-- {{#if (eq user.id_depto_u 1)}} --}}
+                                    <div class="sb-sidenav-menu-heading">Formularios</div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLayouts" aria-expanded="false"
+                                        aria-controls="collapseLayouts">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                        Desplegar Formularios
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                                        data-bs-parent="#sidenavAccordion">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            {{!-- <a class="nav-link" href="/ventas/factura">Estado de Aprobación</a>
+                                            <a class="nav-link" href="layout-sidenav-light.html">En Proceso</a> --}}
+                                            <a class="nav-link" href="/formularios/accidentes_form">Accidentes</a>
+                                            <a class="nav-link" href="/formularios/accidentesTransito_form">Accidentes Transito</a>
+                                             <a class="nav-link" href="/formularios/ataques_form">Ataques</a>
+                                              <a class="nav-link" href="/formularios/fugas_form">Fugas</a>
+                                               <a class="nav-link" href="/formularios/hospitalarios_form">Hospitalarios</a>
+                                                <a class="nav-link" href="/formularios/incendios_form">Incendios</a>
+                                                 <a class="nav-link" href="/formularios/servicios_form">Otros Servicios</a>
+                                                  <a class="nav-link" href="/formularios/rastreosyrescates_form">Rescates-Rastreos</a>
+                                                   <a class="nav-link" href="/formularios/viviendas_form">Viviendas</a>
+                                        </nav>
+                                    </div>
+
+                                    <div class="sb-sidenav-menu-heading">Formularios</div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLayouts2" aria-expanded="false"
+                                        aria-controls="collapseLayouts2">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                        Reportes
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne"
+                                        data-bs-parent="#sidenavAccordion">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="/reportemes/accidentes_mes">Accidentes</a>
+                                            <a class="nav-link" href="/reportemes/accidentestransito_mes">Accidentes Transito</a>
+                                             <a class="nav-link" href="/reportemes/ataques_mes">Ataques</a>
+                                              <a class="nav-link" href="/reportemes/fugas_mes">Fugas</a>
+                                               <a class="nav-link" href="/reportemes/hospitalarios_mes">Hospitalarios</a>
+                                                <a class="nav-link" href="/reportemes/incendios_mes">Incendios</a>
+                                                 <a class="nav-link" href="/reportemes/servicios_mes">Otros Servicios</a>
+                                                  <a class="nav-link" href="/reportemes/rastreosyrescates_mes">Rescates-Rastreos</a>
+                                                   <a class="nav-link" href="/reportemes/viviendas_mes">Viviendas</a>
+                                            
+                                        </nav>
+                                    </div>
+                                   
+                                       {{!-- {{/if}} --}}
+                                          {{#if (eq user.Id_Rol 1)}}
+                                   
+                                         <div class="sb-sidenav-menu-heading">Bomberos y Ambulancias</div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLayoutsbm" aria-expanded="false"
+                                        aria-controls="collapseLayoutsbm">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        Bomberos
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapseLayoutsbm" aria-labelledby="headingOne"
+                                                data-bs-parent="#collapseLayoutsbm">
+                                                <nav class="sb-sidenav-menu-nested nav">
+                                                    <a class="nav-link" href="/registros/bomberos_reg1">Registrar Bomberos</a>
+                                                   
+                                                    
+                                                </nav>
+                                            </div>
+
+                                        
+                                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseLayoutsam" aria-expanded="false"
+                                        aria-controls="collapseLayoutsam">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        Ambulancias
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="collapseLayoutsam" aria-labelledby="headingOne"
+                                                data-bs-parent="#collapseLayoutsam">
+                                                <nav class="sb-sidenav-menu-nested nav">
+                                                    <a class="nav-link" href="/registros/ambulancias_reg1">Registrar Ambulancias</a>
+                                                
+                                                    
+                                                </nav>
+                                            </div>
+
+                                            <div class="sb-sidenav-menu-heading">UNIDADES Y USUARIOS</div>
+                                    <a class="nav-link" href="/registros/unidades_reg1">
+                                    
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        Asignar Unidades
+                                    </a>
+                                    <div class="collapse" id="collapseLayoutsun" aria-labelledby="headingOne"
+                                                data-bs-parent="#collapseLayoutsun">
+                                                <nav class="sb-sidenav-menu-nested nav">
+                                                    <a class="nav-link" href="/bomberos_reg">Registrar Bomberos</a>
+                                                    <a class="nav-link" href="#">Listado Bomberos</a>
+                                                    
+                                                </nav>
+                                            </div>
+
+                                        
+                                        <a class="nav-link" href="/signup">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                        Registrar Usuario
+                                    </a>
+
+                                    {{/if}}
+
+
+                                </div>
+                                
+                            </div>
+                            <div class="sb-sidenav-footer">
+                                <div class="small">Ciudad de</div>
+                               GUATEMALA
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                {{!-- {{else}} --}}
+
+                
+                {{!-- {{/if}} --}}
+                 {{else}}
+
+              <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+             <div>
+                 <img src="/img/bmb.jpeg" alt="logo" class="card-img-top mx-auto ps-1 " style="position: relative; bottom: 0.3rem; width:30px">
+                 <a class="navbar-brand " href="/" >Estación de Bomberos</a>
+                  </div>
+            <!-- Sidebar Toggle-->
+            {{!-- <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button> --}}
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                {{!-- <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div> --}}
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/signin" >Iniciar Sesión</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+
+                {{/if}} 
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<script>
+
+    window.addEventListener('DOMContentLoaded', event => {
+
+        // Toggle the side navigation
+        const sidebarToggle = document.body.querySelector('#sidebarToggle');
+        if (sidebarToggle) {
+            // Uncomment Below to persist sidebar toggle between refreshes
+            // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+            //     document.body.classList.toggle('sb-sidenav-toggled');
+            // }
+            sidebarToggle.addEventListener('click', event => {
+                event.preventDefault();
+                document.body.classList.toggle('sb-sidenav-toggled');
+                localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+            });
+        }
+
+    });
+
+
+</script>

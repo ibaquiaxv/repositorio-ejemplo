@@ -1,0 +1,172 @@
+ 
+ 
+ <div id="layoutSidenav" >
+    <div id="layoutSidenav_content">
+               
+                <div  id="area" style="overflow-y: auto;">
+                    <div class="input-group mt-1">
+                         <form id="basic-form" class="mr-1" action="/reportemes/accidentestransito_mes/" method="POST">
+                        <div class="input-group">
+                            <input type="month"  id="mes" name="date" value="{{regresar}}" style="display: none;" required > 
+                        
+                            <div class="input-group-append mostrar">
+                                <input type="submit" value="Regresar" class="btn btn-danger border-dark" style="width:100px;" >
+                            </div>
+                        </div>
+                    
+                        </form> 
+                    <a id="imprimir"  class="btn btn-secondary mostrar">Imprimir</a>
+                    </div>
+                    {{!-- <a href="/reportemes/accidentes_mes/" class="btn btn-danger mostrar">Regresar</a> --}}
+                   
+                    
+                    <style>
+                    table,td,th, thead, tbody, .table{
+                    border: 2px solid black;
+                    }
+
+                    .table thead th{ 
+                    border: 2px solid black;
+                    }
+                    .table .thead-dark th{
+                    border: 2px solid black;
+                    }
+
+ .flex-container{
+        display: flex;
+        padding-top: 5px;
+        margin-left: 5px;
+        flex-direction: row;
+        flex-wrap: wrap;
+      
+    }
+
+
+    .flex-container div{
+      margin-right: 100px;
+     
+    }
+                </style>
+
+                <div class="container table-responsive break">
+                    <br>
+                    <h5 align= "center">BENEMERITO CUERPO VOLUNTARIO DE BOMBEROS DE GUATEMALA <br>
+                    94 COMPAÑÍA  MUNICIPIO  <br>
+                    ESTADISTICA DE {{Tipo}} <br>
+                        CORRESPONDIENTES A LA FECHA DE  {{date}}
+                                </h5>
+                                <h3></h3><BR>
+                                {{#each encabezado}}
+                                <b>Unidad de Servicio:</b>
+                            <span>{{TipoAmbulancia}}</span> a cargo de {{Nombres}} {{Apellidos}}
+                                <br>
+                                <b>Fecha:</b>
+                                <span>{{fecha}}</span>
+                                <br>
+                                <b>Lugar:</b>
+                                <span>{{lugar}}</span>
+                                <br>
+                                <div class=" form-group row">
+                                    <b>Descripción </b>
+                                 <textarea   rows="2" class="form-control mt-0 " style="font-size: 10pt; resize: none; border:none"  placeholder="">{{descripcion}}</textarea>  
+                                </div>
+                                
+
+           
+                                <br>
+                                
+                                {{/each}}
+
+                    {{#if vehiculo}}
+                            <h5 align= "center">Datos de los vehiculos</h5>
+
+                    <table class="table bg-white "  border="1"    >
+                          <thead class="text-center">
+                                 <tr  bgcolor="#00B9E8" >
+                                    
+                                    <th> #</th>
+                                    <th> Tipo Vehiculo</th>
+                                    <th> Marca </th>
+                                    <th> Placa </th>
+                                  
+                                </tr>
+                                </thead>
+                                {{#each vehiculo}}
+                                <tr >
+                                    <td width="25" >{{ind @index}}</td>
+                                    <th>{{ vehiculo }}</th>
+                                    <th>{{ marca }}</th>
+                                    <th>{{ placa }}</th>
+                                   
+                                </tr>
+                                {{/each}}
+                            </table>
+                            <br>
+                          
+                        </tfoot>
+                    </table>
+                    {{/if}}
+                               
+                    <h5 align= "center">Datos de las personas involucradas</h5>
+
+                    <table class="table bg-white "  border="1"    >
+                          <thead class="text-center">
+                                 <tr  bgcolor="#00B9E8" >
+                                    
+                                    <th> #</th>
+                                    <th> Nombre</th>
+                                    <th> Edad </th>
+                                    <th> Sexo </th>
+                                    <th> Estado </th>
+                                     <th> Tipo Pasajero </th>
+                                    <th> Vehiculo </th>
+                                </tr>
+                                </thead>
+                                {{#each detalle}}
+                                <tr >
+                                    <td width="25" >{{ind @index}}</td>
+                                    <th>{{ NombrePersona }}</th>
+                                    <th>{{ EdadPersona }}</th>
+                                    <th>{{ sexo }}</th>
+                                    <th>{{EstadoPersona}}</th>
+                                    <th>{{TipoPasajero}}</th>
+                                     <th>{{placa}}</th>
+                                </tr>
+                                {{/each}}
+                            </table>
+                            <br>
+                          
+                        </tfoot>
+                    </table>
+                            <br>
+                            <br>
+                        <div class="flex-container " style="margin-left:20%">
+                            <div>
+                              <input type="text" value="FIRMA JEFE DE CIA" style="text-align:center; border-left:none; border-right:none; border-bottom:none">  
+                            </div>
+                             <div style="margin-left:10%;">
+                                <input type="text" value="FIRMA SECRETARIO" style="text-align:center; border-left:none; border-right:none; border-bottom:none">  
+                                
+                            </div>
+                        </div>
+                </div>
+                </div>
+             </div> 
+            </div>     
+<script>
+    $(document).ready(function () {
+        var height = $(window).height();
+        console.log("heigh:", height);
+        $('#area').height(height - 130);
+    })
+   
+    $('#imprimir').click(() => {
+        $('.mostrar').hide();
+        var contentImprimir = $('#area').html();
+        $('body').html(contentImprimir);
+        $('.break').css('page-break-inside', 'avoid');
+        window.print();
+        window.location.reload()
+        return false
+    })
+</script>

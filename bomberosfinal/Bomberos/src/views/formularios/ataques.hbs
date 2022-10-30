@@ -1,0 +1,356 @@
+
+ <div id="layoutSidenav" class="">
+  
+     <div id="layoutSidenav_content">
+        
+        <div class="container  p-2" id="area" style="overflow-y: auto;">
+            <div id="message" >
+                </div> 
+                <h1 align="center">Formulario de Ataques</h1>
+         
+                        <div class="container-fluid form-group row" >
+
+                            
+                            <div id="DTipoAccidente" class="col-md-3">TIPO DE ATAQUE
+
+                                                        <select id="TipoAtaque" name="TipoAtaque" class="btn btn-danger" onchange="getval(this);">
+                                                        
+                                                            <option value="ECHOS">ECHOS</option>
+                                                            <option value="NIÑOS Y ADOLECENTES BALEADOS">NIÑOS Y ADOLECENTES BALEADOS</option>
+                                                            <option value="VAPULEADOS">VAPULEADOS</option>
+                                                        
+                                                        
+                                                        </select>
+                                                    </div>
+                            <div id="DFecha" class="col-md-2" >FECHA Y HORA
+                                <input type="datetime-local" id="Fecha" name="Fecha"  class="form-control" required>
+                            </div>
+
+                            <div id="DLugar" name="DLugar" class="col-md-3" >LUGAR
+                                <input type="text" id="Lugar" name="Lugar" class="form-control"required>
+                            </div>
+
+                                <div id="DBombero" class="col-md-2">UNIDAD ENCARGADA
+
+                          <select id="Id_Unidad" name="Id_Unidad" class="btn btn-danger" onchange="getval(this);">
+                                             {{#each unidad}}
+                                                            <option value={{Placa}}>{{TipoAmbulancia}} Placa={{Placa}}</option>
+                                                            {{/each}}
+                                                        </select>
+                                 </div>
+
+                            
+                        </div>
+                         <div class="container-fluid form-group row ml-0">Descripción
+                                                <textarea id="descripcion" name="descripcion"
+                                                    onkeyPress="return noEnter(this.value, event)" rows="2"
+                                                    class="form-control"
+                                                    placeholder="Descripción del ataque"></textarea>
+                                            </div>
+                     
+
+
+                        <div class="container-fluid form-group row"  ><b>DATOS PERSONA</b>
+                            <div class="card">
+                                <div class="form-group row">
+                                        <div id="DNombre" class="col-md-4" >NOMBRE
+                                            <input type="text" id="Nombre" name="Nombre"  class="form-control" required>
+                                        </div>
+
+                                        <div id="DEdad" name="DEdad" class="col-md-2" >EDAD
+                                            <input type="text" id="Edad" name="Edad" min="0" max="50" placeholder="Ej.. 15 o 15-16" class="form-control"required>
+                                        </div>
+
+                                        <div id="DSexo" class="col-md-2">SEXO
+
+                                                        <select name="Sexo" class="btn btn-danger"
+                                                            style="width:100%;height: 35px; font-size:15px; text-align: center; padding-top: 0px; padding-bottom: 5px;">
+                                                        
+                                                            <option value="1">MASCULINO</option>
+                                                            <option value="2">FEMENINO</option> 
+                                                        
+                                                        </select>
+                                                    </div>
+
+                                        <div id="DvivoFacllecido" class="col-md-2">ESTADO
+
+                                                        <select name="VivosFallecidos" class="btn btn-danger"
+                                                            style="width:100%;height: 35px; font-size:15px; text-align: center; padding-top: 0px; padding-bottom: 5px;">
+                                                        
+                                                            <option value="1">VIVO</option>
+                                                            <option value="2">HERIDO</option>
+                                                             <option value="2">FALLECIDO</option> 
+                                                        
+                                                        </select>
+                                                    </div>
+
+                                                    <div id="DTipoArma" class="col-md-2">ATACADO CON
+
+                                                        <select name="TipoArma" class="btn btn-danger"
+                                                            style="width:100%;height: 35px; font-size:15px; text-align: center; padding-top: 0px; padding-bottom: 5px;">
+                                                        
+                                                            <option value="1">ARMA BLANCA</option>
+                                                            <option value="2">ARMA DE FUEGO</option>
+                                                             <option value="2">N/A</option> 
+                                                        
+                                                        </select>
+                                                    </div>
+                                       
+                                </div>
+                                
+                                 <input id="agregar" type="button" value="Agregar" class="btn btn-primary btn-block" >
+                            </div>          
+                        </div>
+
+                        
+                    
+        <table id="tabla" class=" table table table-hover table-bordered " >
+
+            <thead id="encabezado" class="text-center " style=" height:150%;">
+                     <tr style="border: black 2px solid;">
+                    <th style="width: 1%;">Nº</th>
+                    <th  style="width: 40%;">Nombre</th>
+                    <th>Edad</th>
+                    <th >Sexo</th>
+                    <th >Estado</th>
+                    <th >Atacado con</th>
+                   
+                    <th   class="ver">Acción</th>
+                 </tr>
+               
+            </thead>
+
+            <tbody id="registros" class=" small_table" style="border: black 1px;">
+                
+            </tbody>
+        </table>
+        <input type="button" value="Guardar" id="guardar" class="btn btn-block btn-success">
+        </div>
+    </div>
+</div>
+
+<script>
+
+ var detalle = [];
+        var fila;
+        var listado = [];
+        var cadena = "";
+        var i=0
+
+ function noEnter(texto, e) {
+            if (navigator.appName == "Netscape") tecla = e.which;
+            else tecla = e.keyCode;
+            if (tecla == 13) return false;
+            else return true;
+        }
+
+
+
+        
+        $('#agregar').click((e) => {
+          
+            e.preventDefault();
+
+            
+
+
+            let Nombre = $('#Nombre').val();
+         
+            let Edad = $('#Edad').val();
+            let Sexo= $('select[name="Sexo"] option:selected').text()   
+            let VivoFallecido= $('select[name="VivosFallecidos"] option:selected').text()
+            
+            let TipoArma= $('select[name="TipoArma"] option:selected').text()
+           // let Lugar = parseInt($('#Lugar').val());
+
+        
+
+              if ($('#Nombre').val().length == 0 ) {
+                // limpiarCampos();
+                $('#message').append(message('Ingrese el nombre de la persona'));
+                return;
+            }
+            else if($('#Edad').val().length == 0 ) {
+
+                  $('#message').append(message('Ingrese la edad'));
+                return;
+            }
+             
+
+                
+            i++;
+            
+            var registro = {
+                "no": i,
+                "Nombre": Nombre,
+                "Edad": Edad,
+                "Sexo": Sexo,
+                "VivoFallecido": VivoFallecido,
+                "TipoArma":TipoArma
+            }
+            detalle.push(registro);
+
+          //  limpiarCampos();
+             
+            $('#registros').append(`
+                    <tr >
+                        <td  class="text-center" style="vertical-align: middle;">${registro.no}</td>
+                         <td class="text-center">${registro.Nombre}</td>
+                        <td class="text-center">${registro.Edad}</td>
+                        <td class="text-center" >${registro.Sexo}</td>
+                        <td class="text-center">${registro.VivoFallecido}</td>
+                         <td class="text-center">${registro.TipoArma}</td>
+                       
+                        
+                         {{!-- <td class=" btn btn-danger input_eliminar " style="background:red" id="eliminar">X</td> --}}
+            
+                       
+
+                        .append('<td class="ver" width="1px" style="margin-top:0px;">
+                            
+                         <button class="btn input_eliminar " id="eliminar"> 
+                        <img style="margin-top:0px;" src="/img/eliminar.png" width="20px">
+                                </button> </td>')
+                              
+                    </tr>`);
+
+             $('#Nombre').val('');
+        $('#Edad').val('');
+        })//fin boton agregar
+
+
+
+           
+
+        $(document).on('click', '#eliminar', function (e) {
+            e.preventDefault();
+
+            fila = $(this).closest('tr').index();
+            console.log("det", detalle)
+            
+            console.log("detalle vector", JSON.stringify(detalle[fila].no));
+           
+            /////
+            event.preventDefault();
+            var parent = $(this).closest("table");
+            $(this).closest("tr").remove();
+            // agrego que descienda hasta los tr y ahi hago la iteración
+            parent.children("tbody").children("tr").each(function (i) {
+                $(this).attr('id', (i + 1));
+                $(this).children("td:nth-child(1)").text((i + 1));
+            });
+            ///////////////
+            // clonar tabla    $('#t02 tbody tr')[fila].remove();
+
+
+            i--;
+            $(this).closest('tr').remove();
+          
+
+            detalle.splice(fila, 1);
+
+            
+        })
+
+                $('#guardar').click(async function  () {
+                               
+                 
+              
+                                if ($("input[name='Fecha").val() === "") {
+                                    $("#message").append(message('Ingrese una fecha valida'));
+                                    return
+                                }
+                               else if($("input[name='Lugar").val() === "") {
+                                    $("#message").append(message('Ingrese el lugar'));
+                                    return
+                                }
+                                else if($('#descripcion').val() === "") {
+                                    $("#message").append(message('Ingrese la descripción'));
+                                    return
+                                }
+                                else if(detalle.length==0) {
+                                   $("#message").append(message('Debe llenar al menos 1 dato de la persona'));
+                                    return
+                                }
+                                    Swal.fire({
+                                    title: 'Esta seguro que desea guardar?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#259f48',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, deseo guardar!',
+                                    cancelButtonText:"Cancelar"
+                                    }).then(async(result) => {
+                                    if (result.isConfirmed) {
+                             
+
+                    let TipoAtaque= $('select[name="TipoAtaque"] option:selected').text()
+                    let Id_Unidad= $('select[name="Id_Unidad"] option:selected').val()
+                     let Fecha = $('#Fecha').val();
+                    let Lugar = ($('#Lugar').val());
+                    let Descripcion = $('#descripcion').val();
+                             //   clave_a=$('#clave_a span').text();
+            
+                               url = "/formularios/ataques_form";
+                                pedido = {
+                                    TipoAtaque,
+                                    Id_Unidad,
+                                    Fecha,
+                                    Descripcion,
+                                    Lugar,
+                                    detalle
+                                }
+                                $('#registros').text('');
+                          //      $('#total').text('0');
+                                await fetch(url, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    redirect: 'follow',
+                                    body: JSON.stringify(pedido)
+                                });
+
+                                Swal.fire('Se ha guardado Exitosamente').then(() => {
+                                   window.location.reload();
+                                         })
+                                    }
+                                   
+                                    
+                                    })
+                    });
+                                 
+                            
+
+
+
+function message(cadena) {
+            let mensaje = `<div id="alert" class="container" style="position: absolute;">
+                                <div id="alert" class="col-md-4 mx-auto">
+                                    <div  id="alert"class="alert alert-danger alert-dismissible fade show " role="alert" style="  z-index:100;" >
+                                    ${cadena}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                           </div>
+                                        </div>
+                                    </div>`;
+            //Autoclose
+            window.setTimeout(function () {
+                $(".alert").fadeTo(1500, 0).slideDown(1000, function () {
+                    $(this).remove();
+                });
+            }, 1700); //2 segundos y desaparece
+            return mensaje;
+        }; 
+
+
+        $(document).ready(function () {
+            var height = $(window).height();
+            console.log("heigh:", height);
+            $('#area').height(height - 125);
+        })
+
+   
+          
+    </script>
